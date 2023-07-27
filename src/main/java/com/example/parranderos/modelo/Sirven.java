@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.parranderos.modelo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;

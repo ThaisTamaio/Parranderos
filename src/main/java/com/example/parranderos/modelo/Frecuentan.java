@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.parranderos.modelo;
 import java.util.Date;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
