@@ -13,12 +13,12 @@ public class Frecuentan {
     @Id
     @ManyToOne
     @JoinColumn(name = "id_bebedor", referencedColumnName = "id")
-    private Bebedores bebedor;
+    private Bebedor bebedor;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "id_bar", referencedColumnName = "id")
-    private Bares bar;
+    private Bar bar;
 
     @Id
     private Date fecha_visita;
@@ -28,7 +28,7 @@ public class Frecuentan {
 
     public Frecuentan(){;}
 
-    public Frecuentan(Bebedores bebedor, Bares bar, Date fecha_visita, String horario)
+    public Frecuentan(Bebedor bebedor, Bar bar, Date fecha_visita, String horario)
     {
         this.bebedor = bebedor;
         this.bar = bar;
@@ -36,19 +36,19 @@ public class Frecuentan {
         this.horario = horario;
     }
 
-    public Bebedores getBebedor() {
+    public Bebedor getBebedor() {
         return bebedor;
     }
 
-    public void setBebedor(Bebedores bebedor) {
+    public void setBebedor(Bebedor bebedor) {
         this.bebedor = bebedor;
     }
 
-    public Bares getBar() {
+    public Bar getBar() {
         return bar;
     }
 
-    public void setBar(Bares bar) {
+    public void setBar(Bar bar) {
         this.bar = bar;
     }
 

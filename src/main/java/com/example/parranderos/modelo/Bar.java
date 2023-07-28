@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="bares")
-public class Bares {
+public class Bar {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
@@ -20,9 +20,9 @@ public class Bares {
 
     private Integer cant_sedes;
 
-    public Bares(){;}
+    public Bar(){;}
 
-    public Bares(String nombre, String ciudad, String presupuesto, Integer cant_sedes)
+    public Bar(String nombre, String ciudad, String presupuesto, Integer cant_sedes)
     {
         this.nombre = nombre;
         this.ciudad = ciudad;

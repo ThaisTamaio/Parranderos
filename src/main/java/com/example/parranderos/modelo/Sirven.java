@@ -12,38 +12,38 @@ public class Sirven {
     @Id
     @ManyToOne
     @JoinColumn(name = "id_bar", referencedColumnName = "id")
-    private Bares id_bar;
+    private Bar id_bar;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "id_bebida", referencedColumnName = "id")
-    private Bebidas id_bebida;
+    private Bebida id_bebida;
 
     @Id
     private String horario;
 
     public Sirven(){;}
 
-    public Sirven(Bares id_bar, Bebidas id_bebida, String horario)
+    public Sirven(Bar id_bar, Bebida id_bebida, String horario)
     {
         this.id_bar = id_bar;
         this.id_bebida = id_bebida;
         this.horario = horario;
     }
 
-    public Bares getBar() {
+    public Bar getBar() {
         return id_bar;
     }
 
-    public void setBar(Bares id_bar) {
+    public void setBar(Bar id_bar) {
         this.id_bar = id_bar;
     }
 
-    public Bebidas getBebida() {
+    public Bebida getBebida() {
         return id_bebida;
     }
 
-    public void setBebida(Bebidas id_bebida) {
+    public void setBebida(Bebida id_bebida) {
         this.id_bebida = id_bebida;
     }
 

@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="bebidas")
-public class Bebidas {
+public class Bebida {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -21,11 +21,11 @@ public class Bebidas {
 
     @ManyToOne 
     @JoinColumn(name = "tipo", referencedColumnName = "id") 
-    private Tipos_bebida tipo; 
+    private Tipo_bebida tipo; 
     
-    public Bebidas(){;}
+    public Bebida(){;}
     
-    public Bebidas(String nombre, String color, String grado_alcohol, Tipos_bebida tipo)
+    public Bebida(String nombre, String color, String grado_alcohol, Tipo_bebida tipo)
     {
         this.nombre = nombre;
         this.grado_alcohol = grado_alcohol;
@@ -56,11 +56,11 @@ public class Bebidas {
         this.grado_alcohol = grado_alcohol;
     }
     
-    public Tipos_bebida getTipo() {
+    public Tipo_bebida getTipo() {
         return tipo;
     }
     
-    public void setTipo(Tipos_bebida tipo){
+    public void setTipo(Tipo_bebida tipo){
         this.tipo = tipo;
     }
 

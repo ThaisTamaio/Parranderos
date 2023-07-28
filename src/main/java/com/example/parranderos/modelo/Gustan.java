@@ -12,34 +12,34 @@ public class Gustan {
     @Id
     @ManyToOne
     @JoinColumn(name = "id_bebedor", referencedColumnName = "id")
-    private Bebedores id_bebedor;
+    private Bebedor id_bebedor;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "id_bebida", referencedColumnName = "id")
-    private Bebidas id_bebida;
+    private Bebida id_bebida;
 
     public Gustan(){;}
 
-    public Gustan(Bebedores id_bebedor, Bebidas id_bebida)
+    public Gustan(Bebedor id_bebedor, Bebida id_bebida)
     {
         this.id_bebedor = id_bebedor;
         this.id_bebida = id_bebida;
     }
 
-    public Bebedores getBebedor() {
+    public Bebedor getBebedor() {
         return id_bebedor;
     }
 
-    public void setBebedor(Bebedores id_bebedor) {
+    public void setBebedor(Bebedor id_bebedor) {
         this.id_bebedor = id_bebedor;
     }
 
-    public Bebidas getBebida() {
+    public Bebida getBebida() {
         return id_bebida;
     }
 
-    public void setBebida(Bebidas id_bebida) {
+    public void setBebida(Bebida id_bebida) {
         this.id_bebida = id_bebida;
     }
 

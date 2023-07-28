@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.example.parranderos.modelo.Bebedores;
+import com.example.parranderos.modelo.Bebedor;
 import com.example.parranderos.repositorio.BebedoresRepository;
 
 import org.springframework.boot.CommandLineRunner;
@@ -30,16 +30,24 @@ public class DemoApplication {
 public CommandLineRunner demo(BebedoresRepository repository) {
   return (args) -> {
 	
-	Collection<Bebedores> c_bebedores = repository.darBebedores();
+	Collection<Bebedor> c_bebedores = repository.darBebedores();
 
-	for(Bebedores b: c_bebedores)
+	for(Bebedor b: c_bebedores)
 	{
 		System.out.println(b.toString());
 	}
 	
 	repository.insertarBebedor("Pablo", "Bogotá", "Medio");
+	repository.insertarBebedor("Nicolás", "Bogotá", "Medio");
 	repository.actualizarBebedor(1, "Pedro", "Bogotá", "Medio");
 	repository.eliminarBebedor(1);
+
+	Collection<Bebedor> d_bebedores = repository.darBebedores();
+
+	for(Bebedor b: d_bebedores)
+	{
+		System.out.println(b.toString());
+	}
 	
   };
 

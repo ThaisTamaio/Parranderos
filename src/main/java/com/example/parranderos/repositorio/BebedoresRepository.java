@@ -7,12 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Collection;
-import com.example.parranderos.modelo.Bebedores;
+import com.example.parranderos.modelo.Bebedor;
 
 
-public interface BebedoresRepository  extends JpaRepository<Bebedores, Integer>{
+public interface BebedoresRepository  extends JpaRepository<Bebedor, Integer>{
     @Query(value = "SELECT * FROM bebedores", nativeQuery=true)
-    Collection<Bebedores> darBebedores();
+    Collection<Bebedor> darBebedores();
 
     @Modifying
     @Transactional
@@ -26,7 +26,7 @@ public interface BebedoresRepository  extends JpaRepository<Bebedores, Integer>{
 
     @Modifying
     @Transactional
-    @Query(value = "insert into bebedores (id, nombre, ciudad, presupuesto) values ( bebedores_seq.nextval , :nombre, :ciudad, :presupuesto)", nativeQuery=true)
+    @Query(value = "insert into bebedores (id, nombre, ciudad, presupuesto) values ( parranderos_sequence.nextval , :nombre, :ciudad, :presupuesto)", nativeQuery=true)
     void insertarBebedor(@Param("nombre") String nombre, @Param("ciudad") String ciudad, @Param("presupuesto") String presupuesto);
     
     
