@@ -58,7 +58,7 @@ public class DemoApplication implements CommandLineRunner {
 		for(Respuesta b: respuesta)
 		{
 			System.out.println(b.getCiudad().toString());
-			System.out.println(b.getPresupuesto().toString());
+			//System.out.println(b.getPresupuesto().toString());
 			System.out.println(b.getNumeroDeBebedores());
 		}
 	}

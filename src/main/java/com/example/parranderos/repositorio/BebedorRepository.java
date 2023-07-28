@@ -16,7 +16,6 @@ public interface BebedorRepository extends JpaRepository<Bebedor, Integer> {
         String getCiudad();
         String getPresupuesto();
         int getNumeroDeBebedores();
-       
     }
 
     @Query(value = "SELECT * FROM bebedores", nativeQuery = true)
