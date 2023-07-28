@@ -9,7 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import com.example.parranderos.modelo.Bebedor;
 
+
 public interface BebedorRepository extends JpaRepository<Bebedor, Integer> {
+
+    public interface Respuesta{
+        String getCiudad();
+        String getPresupuesto();
+        int getNumeroDeBebedores();
+       
+    }
 
     @Query(value = "SELECT * FROM bebedores", nativeQuery = true)
     Collection<Bebedor> darBebedores();
@@ -18,10 +26,10 @@ public interface BebedorRepository extends JpaRepository<Bebedor, Integer> {
     Bebedor darBebedor(@Param("id") long id);
 
     // Consulta avanzada
-    @Query(value="SELECT ciudad, presupuesto, count(*) AS numero_de_bebedores\r\n" + //
+    @Query(value="SELECT ciudad, presupuesto, count(*) AS numeroDeBebedores\r\n" + //
                     "FROM bebedores\r\n" + //
                     "GROUP BY ciudad, presupuesto\r\n" , nativeQuery=true)
-    Collection<Object[]> dar_bebedores_por_presupuesto_y_ciudad();
+    Collection<Respuesta> dar_bebedores_por_presupuesto_y_ciudad();
 
     @Modifying
     @Transactional

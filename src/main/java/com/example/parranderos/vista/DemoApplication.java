@@ -18,6 +18,7 @@ import com.example.parranderos.modelo.Gustan;
 import com.example.parranderos.modelo.Sirven;
 import com.example.parranderos.repositorio.BarRepository;
 import com.example.parranderos.repositorio.BebedorRepository;
+import com.example.parranderos.repositorio.BebedorRepository.Respuesta;
 import com.example.parranderos.repositorio.BebidaRepository;
 import com.example.parranderos.repositorio.FrecuentanRepository;
 import com.example.parranderos.repositorio.GustanRepository;
@@ -52,13 +53,13 @@ public class DemoApplication implements CommandLineRunner {
 	public void run(String... args)
 	{
 		System.out.println("Hello World from Application Runner");
-		Collection<Object[]> respuesta = bebedorrepository.dar_bebedores_por_presupuesto_y_ciudad();
+		Collection<Respuesta> respuesta = bebedorrepository.dar_bebedores_por_presupuesto_y_ciudad();
 
-		for(Object[] b: respuesta)
+		for(Respuesta b: respuesta)
 		{
-			System.out.println(b[0].toString());
-			System.out.println(b[1].toString());
-			System.out.println(b[2].toString());
+			System.out.println(b.getCiudad().toString());
+			System.out.println(b.getPresupuesto().toString());
+			System.out.println(b.getNumeroDeBebedores());
 		}
 	}
 
