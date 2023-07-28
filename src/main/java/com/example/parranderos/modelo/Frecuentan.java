@@ -1,77 +1,36 @@
 package com.example.parranderos.modelo;
-import java.util.Date;
+import java.sql.Date;
+
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="frecuentan")
 public class Frecuentan {
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "id_bebedor", referencedColumnName = "id")
-    private Bebedor bebedor;
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "id_bar", referencedColumnName = "id")
-    private Bar bar;
-
-    @Id
-    private Date fecha_visita;
-
-    @Id
-    private String horario;
+    @EmbeddedId
+    private FrecuentanPK pk;
 
     public Frecuentan(){;}
 
-    public Frecuentan(Bebedor bebedor, Bar bar, Date fecha_visita, String horario)
+    public Frecuentan(Bebedor id_bebedor, Bar id_bar, Date fecha_visita, String horario)
     {
-        this.bebedor = bebedor;
-        this.bar = bar;
-        this.fecha_visita = fecha_visita;
-        this.horario = horario;
+        this.pk = new FrecuentanPK(id_bebedor, id_bar, fecha_visita, horario);
     }
 
-    public Bebedor getBebedor() {
-        return bebedor;
+    public FrecuentanPK getPk() {
+        return pk;
     }
 
-    public void setBebedor(Bebedor bebedor) {
-        this.bebedor = bebedor;
-    }
-
-    public Bar getBar() {
-        return bar;
-    }
-
-    public void setBar(Bar bar) {
-        this.bar = bar;
-    }
-
-    public Date getFecha_visita() {
-        return fecha_visita;
-    }
-
-    public void setFecha_visita(Date fecha_visita) {
-        this.fecha_visita = fecha_visita;
-    }
-
-    public String getHorario() {
-        return horario;
-    }
-
-    public void setHorario(String horario){
-        this.horario = horario;
+    public void setPk(FrecuentanPK pk) {
+        this.pk = pk;
     }
 
     @Override
     public String toString() 
     {
-        return this.bebedor.getId() + "|" + this.bar.getId() + "|" + this.fecha_visita + "|" + this.horario;
-
+        return this.pk.getBebedor().getId()+"|"+this.pk.getBar().getId()+"|"+this.pk.getFecha_visita()+"|"+this.pk.getHorario();
     }
+
 }

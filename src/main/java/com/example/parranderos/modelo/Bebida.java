@@ -25,7 +25,7 @@ public class Bebida {
     
     public Bebida(){;}
     
-    public Bebida(String nombre, String color, String grado_alcohol, Tipo_bebida tipo)
+    public Bebida(String nombre, String grado_alcohol, Tipo_bebida tipo)
     {
         this.nombre = nombre;
         this.grado_alcohol = grado_alcohol;
@@ -67,7 +67,7 @@ public class Bebida {
     @Override
     public String toString() 
     {
-        return this.nombre+"|"+this.grado_alcohol+"|"+this.tipo;
+        return this.nombre+"|"+this.grado_alcohol+"|"+this.tipo.getId();
     }
     
 }
