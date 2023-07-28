@@ -17,6 +17,12 @@ public interface BebedorRepository extends JpaRepository<Bebedor, Integer> {
     @Query(value = "SELECT * FROM bebedores WHERE id = :id", nativeQuery = true)
     Bebedor darBebedor(@Param("id") long id);
 
+    // Consulta avanzada
+    @Query(value="SELECT ciudad, presupuesto, count(*) AS numero_de_bebedores\r\n" + //
+                    "FROM bebedores\r\n" + //
+                    "GROUP BY ciudad, presupuesto\r\n" , nativeQuery=true)
+    Collection<Object[]> dar_bebedores_por_presupuesto_y_ciudad();
+
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM bebedores WHERE id = :id", nativeQuery = true) 

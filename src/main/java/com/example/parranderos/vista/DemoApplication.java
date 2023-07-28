@@ -24,6 +24,7 @@ import com.example.parranderos.repositorio.GustanRepository;
 import com.example.parranderos.repositorio.SirvenRepository;
 import com.example.parranderos.repositorio.Tipo_bebidaRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
 import java.text.SimpleDateFormat;
@@ -33,13 +34,36 @@ import java.util.Collection;
 @EntityScan("com.example.parranderos.modelo")
 @ComponentScan("com.example.parranderos.modelo")
 @EnableJpaRepositories("com.example.parranderos.repositorio")
-public class DemoApplication {
+public class DemoApplication implements CommandLineRunner {
+
+
+	@Autowired
+    private BebedorRepository bebedorrepository;
+
+
+	@Autowired
+    private BebidaRepository bebidaRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+	@Override
+	public void run(String... args)
+	{
+		System.out.println("Hello World from Application Runner");
+		Collection<Object[]> respuesta = bebedorrepository.dar_bebedores_por_presupuesto_y_ciudad();
 
+		for(Object[] b: respuesta)
+		{
+			System.out.println(b[0].toString());
+			System.out.println(b[1].toString());
+			System.out.println(b[2].toString());
+		}
+	}
+
+
+	/**
 @Bean
 public CommandLineRunner demo(BebedorRepository bebedorrepository, BebidaRepository bebidarepository, BarRepository barrepository, 
 Tipo_bebidaRepository tipobebidarepository, GustanRepository gustanrepository, SirvenRepository	sirvenrepository, FrecuentanRepository frecuentanrepository) {
@@ -162,6 +186,6 @@ Tipo_bebidaRepository tipobebidarepository, GustanRepository gustanrepository, S
 	System.out.println(f1.toString());
 
   };
-
-}
+ 
+}*/
 }
