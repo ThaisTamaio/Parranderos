@@ -19,6 +19,8 @@ import com.example.parranderos.modelo.Sirven;
 import com.example.parranderos.repositorio.BarRepository;
 import com.example.parranderos.repositorio.BebedorRepository;
 import com.example.parranderos.repositorio.BebedorRepository.Respuesta;
+import com.example.parranderos.repositorio.BebedorRepository.RespuestaBebedoryBares;
+import com.example.parranderos.repositorio.BebidaRepository.RespuestaInformacionBebidas;
 import com.example.parranderos.repositorio.BebidaRepository;
 import com.example.parranderos.repositorio.FrecuentanRepository;
 import com.example.parranderos.repositorio.GustanRepository;
@@ -45,6 +47,9 @@ public class DemoApplication implements CommandLineRunner {
 	@Autowired
     private BebidaRepository bebidaRepository;
 
+	@Autowired
+	private BarRepository barrepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
@@ -54,6 +59,33 @@ public class DemoApplication implements CommandLineRunner {
 	{
 		System.out.println("Hello World from Application Runner");
 		Collection<Respuesta> respuesta = bebedorrepository.dar_bebedores_por_presupuesto_y_ciudad();
+		Collection<Bebida> bebidas1 = bebidaRepository.darBebidasPorHorarioYPresupuesto("diurno", "alto");
+		Collection<RespuestaInformacionBebidas> respuesta2 = bebidaRepository.darInformacionBebidas();
+		Collection<Bebida> bebidas3 = bebidaRepository.darBebidasConElMayorGradoAlcohol();
+		Collection<Bebida> bebidas4 = bebidaRepository.darBebidasConElMenorGradoAlcohol();
+
+		for(Bebida b: bebidas1)
+		{
+			System.out.println(b.toString());
+		}
+
+		for(RespuestaInformacionBebidas b: respuesta2)
+		{
+			System.out.println(b.getTOTAL_BEBIDAS());
+			System.out.println(b.getPROMEDIO_GRADO());
+			System.out.println(b.getMAYOR_GRADO());
+			System.out.println(b.getMENOR_GRADO());
+		}
+
+		for(Bebida b: bebidas3)
+		{
+			System.out.println(b.toString());
+		}
+
+		for(Bebida b: bebidas4)
+		{
+			System.out.println(b.toString());
+		}
 
 		for(Respuesta b: respuesta)
 		{
@@ -61,6 +93,57 @@ public class DemoApplication implements CommandLineRunner {
 			//System.out.println(b.getPresupuesto().toString());
 			System.out.println(b.getNumeroDeBebedores());
 		}
+
+		Collection<RespuestaBebedoryBares> respuesta3 = bebedorrepository.darTodosLosBebedoresYLosBaresQueFrencuentan();
+		Collection<Bebedor> respuesta4 = bebedorrepository.darBebedoresQueGustanDeBebidasConMayorGradoAlcohol();
+		Collection<Bebedor> respuesta5 = bebedorrepository.darBebedoresQueGustanDeBebidasConMenorGradoAlcohol();
+
+		for(RespuestaBebedoryBares b: respuesta3)
+		{
+			System.out.println(b.getId());
+			System.out.println(b.getNombre());
+			System.out.println(b.getCiudad());
+			System.out.println(b.getPresupuesto());
+			System.out.println(b.getIdBar());
+		}
+
+		for(Bebedor b: respuesta4)
+		{
+			System.out.println(b.toString());
+		}
+
+		for(Bebedor b: respuesta5)
+		{
+			System.out.println(b.toString());
+		}
+
+		Collection<Bar> respuesta6 = barrepository.darBaresPorCiudadYTipoBebida("Bogotá", "Cerveza");
+		Collection<Bar> respuesta7 = barrepository.darBaresQueSirvenBebidasConMayorGradoAlcohol();
+		Collection<Bar> respuesta8 = barrepository.darBaresQueSirvenBebidasConMenorGradoAlcohol();
+		Collection<BarRepository.RespuestaBaresPorCiudad> respuesta9 = barrepository.darBaresPorCiudad();
+
+		for(Bar b: respuesta6)
+		{
+			System.out.println(b.toString());
+		}
+
+		for(Bar b: respuesta7)
+		{
+			System.out.println(b.toString());
+		}
+
+		for(Bar b: respuesta8)
+		{
+			System.out.println(b.toString());
+		}
+
+		for(BarRepository.RespuestaBaresPorCiudad b: respuesta9)
+		{
+			System.out.println(b.getCiudad());
+			System.out.println(b.getNumeroBares());
+			System.out.println(b.getCantidadSedes());
+		}
+	
 	}
 
 
