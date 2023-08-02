@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Sirven</title>
+</head>
+<body>
+    <h1>Crear Nuevo Sirven</h1>
+    <form action="/parranderos/sirven/new/save" method="post">
+        <label for="id_Bar">Bar:</label>
+        <select id="id_bar" name="id_bar" required>
+            <th:block th:each="bar : ${bares}">
+                <option th:value="${bar.id}" th:text="${bar.nombre}"></option>
+            </th:block>
+        </select><br>
+
+        <label for="id_Bebida">Bebida:</label>
+        <select id="id_bebida" name="id_bebida" required>
+            <th:block th:each="bebida : ${bebidas}">
+                <option th:value="${bebida.id}" th:text="${bebida.nombre}"></option>
+            </th:block>
+        </select><br>
+
+        <label for="horario">Horario:</label>
+        <input type="text" id="horario" name="horario" required><br>
+
+
+        <input type="submit" value="Guardar">
+        <button onclick="window.history.back()">Cancelar</button>
+    </form>
+</body>
+</html>

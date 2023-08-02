@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Bebida</title>
+</head>
+<body>
+    <h1>Editar Bebida</h1>
+    <form th:action="@{'/bebidas/' + ${id} + '/edit/save'}" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" th:value="${bebida.nombre}" required><br>
+
+        <label for="grado_alcohol">Grado de Alcohol:</label>
+        <input type="text" id="grado_alcohol" name="grado_alcohol" th:value="${bebida.grado_alcohol}" required><br>
+
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" name="tipo" required>
+            <th:block th:each="tipo : ${tipos}">
+                <option th:value="${tipo.id}" th:text="${tipo.nombre}" th:selected="${bebida.tipo.id == tipo.id}"></option>
+            </th:block>
+        </select><br>
+
+        <input type="submit" value="Guardar">
+        <button onclick="window.history.back()">Cancelar</button>
+    </form>
+</body>
+</html>
