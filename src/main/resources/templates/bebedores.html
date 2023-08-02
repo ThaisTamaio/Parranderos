@@ -2,13 +2,17 @@
 <html>
 <head>
     <title>Lista de Bebedores</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+
 </head>
 <body>
+    <div class="text-center">
     <h1>Lista de Bebedores</h1>
     <p>Hay <span th:text="${darNumeroDeBebedoresQueGustanDeBebidasConMayorGradoAlcohol}"></span> bebedores que gustan de bebidas con el mayor grado de alcohol</p>
     <p>Hay <span th:text="${darNumeroDeBebedoresQueGustanDeBebidasConMenorGradoAlcohol}"></span> bebedores que gustan de bebidas con el menor grado de alcohol</p>
-
-    <table>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
         <tr>
             <th>ID</th>
             <th>Nombre</th>
@@ -16,6 +20,7 @@
             <th>Presupuesto</th>
             <th>Acciones</th>
         </tr>
+        </thead>
         <th:block th:each="bebedor : ${bebedores}">
             <tr>
                 <td th:text="${bebedor.id}"></td>
@@ -29,11 +34,11 @@
             </tr>
         </th:block>
     </table>
-    <div>
-        <button onclick="window.location.href='/borrar-bebedores'">Buscar bebedores por ciudad y presupuesto</button>
-        <button onclick="window.location.href='/parranderos/bebedores/new'">Añadir Bebedor</button>
-        <button onclick="window.location.href='/parranderos/frecuentan/new'">Añadir Visita a Bar</button>
-        <button onclick="window.location.href='/parranderos'">Volver Atrás</button>
+    <div class="text-center">
+        <a th:href="@{borrar-bebedores}" class="btn btn-primary" >Buscar bebedores por ciudad y presupuesto</a>
+        <a th:href="@{bebedores/new}" class="btn btn-primary">Añadir Bebedor</a>
+        <a th:href="@{bebedores/frecuentan/new}" class="btn btn-primary">Añadir Visita a Bar</a>
+        <a th:href="@{/}" class="btn btn-primary"> Volver Atrás</a>
     </div>
 </body>
 </html>

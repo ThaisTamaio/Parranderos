@@ -18,7 +18,7 @@ public class BarController {
     private BarRepository barRepository;
 
     @GetMapping("/bares")
-    public String bares(Model model) {
+    public String bares(Model model, String nombre) {
         int NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol = barRepository
                 .darNumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol();
         int NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol = barRepository
@@ -27,7 +27,17 @@ public class BarController {
                 NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol);
         model.addAttribute("NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol",
                 NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol);
-        model.addAttribute("bares", barRepository.darBares());
+        
+        System.out.println(nombre);
+
+        if(nombre != null && !nombre.equals(""))
+        {
+            model.addAttribute("bares", barRepository.darBaresPorNombre(nombre));
+        }
+        else{
+            model.addAttribute("bares", barRepository.darBares());
+        }
+
         return "bares";
     }
 

@@ -2,13 +2,16 @@
 <html>
 <head>
     <title>Parranderos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
+    <div class="text-center">
     <h1>Parranderos</h1>
     <div>
-        <button onclick="window.location.href='/parranderos/bebedores'">Bebedores</button>
-        <button onclick="window.location.href='/parranderos/bares'">Bares</button>
-        <button onclick="window.location.href='/parranderos/bebidas'">Bebidas</button>
+        <a th:href="@{/bebedores}" class="btn btn-primary">Bebedores</a>
+        <a th:href="@{/bares}" class="btn btn-primary">Bares</a>
+        <a th:href="@{/bebidas}" class="btn btn-primary">Bebidas</a>
     </div>
+</div>
 </body>
 </html>

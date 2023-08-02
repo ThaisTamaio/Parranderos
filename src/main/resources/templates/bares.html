@@ -2,12 +2,22 @@
 <html>
 <head>
     <title>Lista de Bares</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+
 </head>
 <body>
+    <div class="text-center">
     <h1>Lista de Bares</h1>
     <p>Hay <span th:text="${NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol}"></span> bares que sirven bebidas con el mayor grado de alcohol.</p>
     <p>Hay <span th:text="${NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol}"></span> bares que sirven bebidas con el menor grado de alcohol.</p>
-    <table>
+    
+    <form th:action="@{bares}" method="get">
+        <input id="'txtSearch" type="text" name="nombre">
+        <button type="submit">Buscar por nombre</button>
+    </form>
+    <p></p>
+    <table class="table">
+        <thead class="thead-dark">
         <tr>
             <th>ID</th>
             <th>Nombre</th>
@@ -16,6 +26,7 @@
             <th>Cantidad de Sedes</th>
             <th>Acciones</th>
         </tr>
+    </thead>
         <th:block th:each="bar : ${bares}">
             <tr>
                 <td th:text="${bar.id}"></td>
@@ -31,10 +42,11 @@
         </th:block>
     </table>
     <div>
-        <button onclick="window.location.href='/borrar-bares'">Buscar bares por ciudad y tipo de bebida</button>
-        <button onclick="window.location.href='/parranderos/bares/new'">Añadir Bar</button>
-        <button onclick="window.location.href='/parranderos/sirven/new'">Añadir Bebida a Bar</button>
-        <button onclick="window.location.href='/parranderos'">Volver Atrás</button>
+        <a th:href='@{borrar-bares}' class="btn btn-primary">Buscar bares por ciudad y tipo de bebida</a>
+        <a th:href='@{bares/new}' class="btn btn-primary">Añadir Bar</a>
+        <a th:href='@{sirven/new}' class="btn btn-primary">Añadir Bebida a Bar</a>
+        <a th:href='@{/}' class="btn btn-primary">Volver Atrás</a>
     </div>
+</div>
 </body>
 </html>

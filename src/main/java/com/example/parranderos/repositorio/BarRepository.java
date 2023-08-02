@@ -25,6 +25,9 @@ public interface BarRepository extends JpaRepository<Bar, Integer> {
         @Query(value = "SELECT * FROM bares WHERE id = :id", nativeQuery = true)
         Bar darBar(@Param("id") long id);
 
+        @Query(value = "SELECT * FROM bares b WHERE b.nombre LIKE CONCAT(CONCAT('%',:nombrebar),'%')", nativeQuery=true)
+        Collection<Bar> darBaresPorNombre(@Param("nombrebar") String nombre);
+
         // Consulta avanzada
         @Query(value = "SELECT B.*\r\n" + //
                         "FROM bares B\r\n" + //
