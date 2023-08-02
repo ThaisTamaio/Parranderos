@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Sirven</title>
+</head>
+<body>
+    <h1>Crear Nuevo Gustan</h1>
+    <form action="/parranderos/gustan/new/save" method="post">
+
+        <label for="id_bebida">Bebida:</label>
+        <select id="id_bebida" name="id_bebida" required>
+            <th:block th:each="bebida : ${bebidas}">
+                <option th:value="${bebida.id}" th:text="${bebida.nombre}"></option>
+            </th:block>
+        </select><br>
+
+        <label for="id_bebedor">Bebedor:</label>
+        <select id="id_bebedor" name="id_bebedor" required>
+            <th:block th:each="bebedor : ${bebedores}">
+                <option th:value="${bebedor.id}" th:text="${bebedor.nombre}"></option>
+            </th:block>
+        </select><br>
+
+        <input type="submit" value="Guardar">
+        <button onclick="window.history.back()">Cancelar</button>
+    </form>
+</body>
+</html>
