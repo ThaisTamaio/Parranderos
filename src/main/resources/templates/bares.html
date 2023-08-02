@@ -5,8 +5,8 @@
 </head>
 <body>
     <h1>Lista de Bares</h1>
-    <p>Hay <span th:text="${NumeroBaresQueSirvenBebidasConMayorGradoAlcohol}"></span> bares que sirven bebidas con el mayor grado de alcohol.</p>
-    <p>Hay <span th:text="${NumeroBaresQueSirvenBebidasConMenorGradoAlcohol}"></span> bares que sirven bebidas con el menor grado de alcohol.</p>
+    <p>Hay <span th:text="${NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol}"></span> bares que sirven bebidas con el mayor grado de alcohol.</p>
+    <p>Hay <span th:text="${NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol}"></span> bares que sirven bebidas con el menor grado de alcohol.</p>
     <table>
         <tr>
             <th>ID</th>
@@ -34,7 +34,7 @@
         <button onclick="window.location.href='/borrar-bares'">Buscar bares por ciudad y tipo de bebida</button>
         <button onclick="window.location.href='/parranderos/bares/new'">Añadir Bar</button>
         <button onclick="window.location.href='/anadir-bebida-a-bar'">Añadir Bebida a Bar</button>
-        <button onclick="window.history.back()">Volver Atrás</button>
+        <button onclick="window.location.href='/parranderos'">Volver Atrás</button>
     </div>
 </body>
 </html>

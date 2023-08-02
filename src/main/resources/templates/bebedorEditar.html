@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Bebedor</title>
+</head>
+<body>
+    <h1>Editar Bebedor</h1>
+    <form th:action="@{'/bebedores/' + ${id} + '/edit/save'}" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" th:value="${bebedor.nombre}" required><br>
+
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" name="ciudad" th:value="${bebedor.ciudad}" required><br>
+
+        <label for="presupuesto">Presupuesto:</label>
+        <select id="presupuesto" name="presupuesto" required>
+            <option value="Alto" th:selected="${bebedor.presupuesto eq 'Alto'}">Alto</option>
+            <option value="Medio" th:selected="${bebedor.presupuesto eq 'Medio'}">Medio</option>
+            <option value="Bajo" th:selected="${bebedor.presupuesto eq 'Bajo'}">Bajo</option>
+        </select><br>
+
+        <input type="submit" value="Guardar">
+        <button onclick="window.history.back()">Cancelar</button>
+    </form>
+</body>
+</html>

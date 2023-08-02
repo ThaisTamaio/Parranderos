@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Bebedores</title>
+</head>
+<body>
+    <h1>Lista de Bebedores</h1>
+    <p>Hay <span th:text="${darNumeroDeBebedoresQueGustanDeBebidasConMayorGradoAlcohol}"></span> bebedores que gustan de bebidas con el mayor grado de alcohol</p>
+    <p>Hay <span th:text="${darNumeroDeBebedoresQueGustanDeBebidasConMenorGradoAlcohol}"></span> bebedores que gustan de bebidas con el menor grado de alcohol</p>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Ciudad</th>
+            <th>Presupuesto</th>
+            <th>Acciones</th>
+        </tr>
+        <th:block th:each="bebedor : ${bebedores}">
+            <tr>
+                <td th:text="${bebedor.id}"></td>
+                <td th:text="${bebedor.nombre}"></td>
+                <td th:text="${bebedor.ciudad}"></td>
+                <td th:text="${bebedor.presupuesto}"></td>
+                <td>
+                    <a th:href="@{bebedores/{id}/edit(id=${bebedor.id})}">Editar</a>
+                    <a th:href="@{bebedores/{id}/delete(id=${bebedor.id})}" onclick="return confirm('¿Estás seguro de borrar este bebedor?')">Borrar</a>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+    <div>
+        <button onclick="window.location.href='/borrar-bebedores'">Buscar bebedores por ciudad y presupuesto</button>
+        <button onclick="window.location.href='/parranderos/bebedores/new'">Añadir Bebedor</button>
+        <button onclick="window.location.href='/parranderos'">Volver Atrás</button>
+    </div>
+</body>
+</html>

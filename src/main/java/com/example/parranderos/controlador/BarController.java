@@ -19,14 +19,14 @@ public class BarController {
 
     @GetMapping("/bares")
     public String bares(Model model) {
-        int NumeroBaresQueSirvenBebidasConMayorGradoAlcohol = barRepository
-                .darNumeroBaresQueSirvenBebidasConMayorGradoAlcohol();
-        int NumeroBaresQueSirvenBebidasConMenorGradoAlcohol = barRepository
-                .darNumeroBaresQueSirvenBebidasConMenorGradoAlcohol();
-        model.addAttribute("NumeroBaresQueSirvenBebidasConMayorGradoAlcohol",
-                NumeroBaresQueSirvenBebidasConMayorGradoAlcohol);
-        model.addAttribute("NumeroBaresQueSirvenBebidasConMenorGradoAlcohol",
-                NumeroBaresQueSirvenBebidasConMenorGradoAlcohol);
+        int NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol = barRepository
+                .darNumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol();
+        int NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol = barRepository
+                .darNumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol();
+        model.addAttribute("NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol",
+                NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol);
+        model.addAttribute("NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol",
+                NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol);
         model.addAttribute("bares", barRepository.darBares());
         return "bares";
     }
@@ -56,7 +56,6 @@ public class BarController {
 
     @PostMapping("/bares/{id}/edit/save")
     public String barEditarGuardar(@PathVariable("id") long id, @ModelAttribute Bar bar) {
-        System.out.println("id: " + id);
         barRepository.actualizarBar(((long) id), bar.getNombre(), bar.getCiudad(), bar.getPresupuesto(),
                 bar.getCant_sedes());
         return "redirect:/bares";

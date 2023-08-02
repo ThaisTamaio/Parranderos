@@ -45,16 +45,28 @@ public interface BebidaRepository extends JpaRepository<Bebida, Integer> {
         Collection<RespuestaInformacionBebidas> darInformacionBebidas();
 
         // Consulta avanzada
-        @Query(value = "Select * \r\n" + //
+        @Query(value = "SELECT * \r\n" + //
                         "FROM bebidas B\r\n" + //
                         "WHERE grado_alcohol = (SELECT MAX(grado_alcohol) AS GRADO_MAX FROM bebidas)", nativeQuery = true)
         Collection<Bebida> darBebidasConElMayorGradoAlcohol();
 
         // Consulta avanzada
-        @Query(value = "Select * \r\n" + //
+        @Query(value = "SELECT COUNT(*) \r\n" + //
+                        "FROM bebidas B\r\n" + //
+                        "WHERE grado_alcohol = (SELECT MAX(grado_alcohol) AS GRADO_MAX FROM bebidas)", nativeQuery = true)
+        int darNumeroDeBebidasConElMayorGradoAlcohol();
+
+        // Consulta avanzada
+        @Query(value = "SELECT * \r\n" + //
                         "FROM bebidas B\r\n" + //
                         "WHERE grado_alcohol = (SELECT MIN(grado_alcohol) AS GRADO_MIN FROM bebidas)", nativeQuery = true)
         Collection<Bebida> darBebidasConElMenorGradoAlcohol();
+
+        // Consulta avanzada
+        @Query(value = "SELECT COUNT(*) \r\n" + //
+                        "FROM bebidas B\r\n" + //
+                        "WHERE grado_alcohol = (SELECT MIN(grado_alcohol) AS GRADO_MIN FROM bebidas)", nativeQuery = true)
+        int darNumeroDeBebidasConElMenorGradoAlcohol();
 
         @Modifying
         @Transactional
