@@ -1,4 +1,4 @@
-package com.example.parranderos.vista;
+package com.example.parranderos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,24 +23,17 @@ import org.springframework.boot.CommandLineRunner;
 import java.util.Collection;
 
 @SpringBootApplication
-@EntityScan("com.example.parranderos.modelo")
-@ComponentScan({ "com.example.parranderos.modelo", "com.example.parranderos.controlador" })
-@EnableJpaRepositories("com.example.parranderos.repositorio")
-public class DemoApplication implements CommandLineRunner {
+public class DemoApplication  {
 
-	@Autowired
-	private BebedorRepository bebedorrepository;
 
-	@Autowired
-	private BebidaRepository bebidaRepository;
-
-	@Autowired
-	private BarRepository barrepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+	/** 
+	 * 
+	 * 
 	@Override
 	public void run(String... args) {
 		System.out.println("Hello World from Application Runner");
@@ -119,7 +112,7 @@ public class DemoApplication implements CommandLineRunner {
 		}
 
 	}
-
+	*/
 	/**
 	 * @Bean
 	 *       public CommandLineRunner demo(BebedorRepository bebedorrepository,

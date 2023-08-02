@@ -1,4 +1,4 @@
-package com.example.parranderos.controlador;
+package com.example.parranderos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

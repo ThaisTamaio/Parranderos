@@ -1,4 +1,4 @@
-package com.example.parranderos.controlador;
+package com.example.parranderos.controller;
 
 import java.sql.Date;
 
