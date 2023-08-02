@@ -43,12 +43,28 @@ public interface BarRepository extends JpaRepository<Bar, Integer> {
         Collection<Bar> darBaresQueSirvenBebidasConMayorGradoAlcohol();
 
         // Consulta avanzada
+        @Query(value = "SELECT COUNT(*)\r\n" + //
+                        "FROM bares B\r\n" + //
+                        "INNER JOIN sirven SB ON B.ID = SB.ID_BAR\r\n" + //
+                        "INNER JOIN bebidas BR ON SB.ID_BEBIDA = BR.ID\r\n" + //
+                        "WHERE BR.GRADO_ALCOHOL = (SELECT MAX(GRADO_ALCOHOL) FROM bebidas)", nativeQuery = true)
+        int darNumeroBaresQueSirvenBebidasConMayorGradoAlcohol();
+
+        // Consulta avanzada
         @Query(value = "SELECT B.*\r\n" + //
                         "FROM bares B\r\n" + //
                         "INNER JOIN sirven SB ON B.ID = SB.ID_BAR\r\n" + //
                         "INNER JOIN bebidas BR ON SB.ID_BEBIDA = BR.ID\r\n" + //
                         "WHERE BR.GRADO_ALCOHOL = (SELECT MIN(GRADO_ALCOHOL) FROM bebidas)", nativeQuery = true)
         Collection<Bar> darBaresQueSirvenBebidasConMenorGradoAlcohol();
+
+        // Consulta avanzada
+        @Query(value = "SELECT COUNT(*)\r\n" + //
+                        "FROM bares B\r\n" + //
+                        "INNER JOIN sirven SB ON B.ID = SB.ID_BAR\r\n" + //
+                        "INNER JOIN bebidas BR ON SB.ID_BEBIDA = BR.ID\r\n" + //
+                        "WHERE BR.GRADO_ALCOHOL = (SELECT MIN(GRADO_ALCOHOL) FROM bebidas)", nativeQuery = true)
+        int darNumeroBaresQueSirvenBebidasConMenorGradoAlcohol();
 
         // Consulta avanzada
         @Query(value = "SELECT CIUDAD, COUNT(ID) AS NUMEROBARES, SUM(cant_sedes) AS CANTIDADSEDES\r\n" + //
