@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+
+import com.example.parranderos.modelo.Bar;
 import com.example.parranderos.modelo.Bebedor;
 
 public interface BebedorRepository extends JpaRepository<Bebedor, Integer> {
@@ -38,28 +40,10 @@ public interface BebedorRepository extends JpaRepository<Bebedor, Integer> {
     @Query(value = "SELECT * FROM bebedores WHERE id = :id", nativeQuery = true)
     Bebedor darBebedor(@Param("id") long id);
 
-    // Consulta avanzada
-    @Query(value = "SELECT ciudad, presupuesto, count(*) AS numeroDeBebedores\r\n" + //
-            "FROM bebedores\r\n" + //
-            "GROUP BY ciudad, presupuesto\r\n", nativeQuery = true)
-    Collection<Respuesta> dar_bebedores_por_presupuesto_y_ciudad();
+    @Query(value = "SELECT * FROM bebedores b WHERE b.nombre LIKE '%' || :nombre || '%'", nativeQuery=true)
+    Collection<Bebedor> darBebedoresPorNombre(@Param("nombre") String nombre);
 
-    // Consulta avanzada
-    @Query(value = "SELECT B.*, F.id_bar AS IDBAR\r\n" + //
-            "FROM frecuentan F\r\n" + //
-            "RIGHT OUTER JOIN bebedores B ON B.id = F.id_bebedor\r\n", nativeQuery = true)
-    Collection<RespuestaBebedoryBares> darTodosLosBebedoresYLosBaresQueFrencuentan();
 
-    // Consulta avanzada
-    @Query(value = "SELECT B.*\r\n" + //
-            "FROM (SELECT G.id_bebedor\r\n" + //
-            "FROM (SELECT B.id\r\n" + //
-            "FROM bebidas B\r\n" + //
-            "WHERE grado_alcohol = (SELECT MAX(grado_alcohol) AS GRADO_MAX FROM bebidas)) B \r\n" + //
-            "INNER JOIN gustan G ON B.ID = G.id_bebida) IDB\r\n" + //
-            "INNER JOIN bebedores B ON IDB.id_bebedor = B.id\r\n" + //
-            "ORDER BY B.NOMBRE ASC\r\n", nativeQuery = true)
-    Collection<Bebedor> darBebedoresQueGustanDeBebidasConMayorGradoAlcohol();
 
     // Consulta avanzada
     @Query(value = "SELECT COUNT(*)\r\n" + //
@@ -70,17 +54,6 @@ public interface BebedorRepository extends JpaRepository<Bebedor, Integer> {
             "INNER JOIN gustan G ON B.ID = G.id_bebida) IDB\r\n" + //
             "INNER JOIN bebedores B ON IDB.id_bebedor = B.id\r\n", nativeQuery = true)
     int darNumeroDeBebedoresQueGustanDeBebidasConMayorGradoAlcohol();
-
-    // Consulta avanzada
-    @Query(value = "SELECT B.*\r\n" + //
-            "FROM (SELECT G.id_bebedor\r\n" + //
-            "FROM (SELECT B.id\r\n" + //
-            "FROM bebidas B\r\n" + //
-            "WHERE grado_alcohol = (SELECT MIN(grado_alcohol) AS GRADO_MIN FROM bebidas)) B \r\n" + //
-            "INNER JOIN gustan G ON B.ID = G.id_bebida) IDB\r\n" + //
-            "INNER JOIN bebedores B ON IDB.id_bebedor = B.id\r\n" + //
-            "ORDER BY B.NOMBRE ASC\r\n", nativeQuery = true)
-    Collection<Bebedor> darBebedoresQueGustanDeBebidasConMenorGradoAlcohol();
 
     // Consulta avanzada
     @Query(value = "SELECT COUNT(*)\r\n" + //

@@ -13,7 +13,7 @@ import com.example.parranderos.repositorio.BarRepository;
 import com.example.parranderos.repositorio.Tipo_bebidaRepository;
 
 @Controller
-public class BarController {
+public class BaresController {
 
     @Autowired
     private BarRepository barRepository;

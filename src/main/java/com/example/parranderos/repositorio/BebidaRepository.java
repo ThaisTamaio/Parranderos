@@ -28,13 +28,13 @@ public interface BebidaRepository extends JpaRepository<Bebida, Integer> {
         Bebida darBebida(@Param("id") long id);
 
         // Consulta avanzada
-        @Query(value = "SELECT B.*\r\n" + //
+        @Query(value = "SELECT DISTINCT B.*\r\n" + //
                         "FROM bebidas B\r\n" + //
                         "INNER JOIN sirven SB ON B.ID = SB.ID_BEBIDA\r\n" + //
                         "INNER JOIN bares BR ON SB.ID_BAR = BR.ID\r\n" + //
-                        "WHERE SB.HORARIO = :horario AND BR.PRESUPUESTO = :presupuesto", nativeQuery = true)
-        Collection<Bebida> darBebidasPorHorarioYPresupuesto(@Param("horario") String horario,
-                        @Param("presupuesto") String presupuesto);
+                        "WHERE BR.CIUDAD = :ciudad AND B.GRADO_ALCOHOL BETWEEN :mingrado AND :maxgrado", nativeQuery = true)
+        Collection<Bebida> darBebidasPorCiudadYGrado(@Param("ciudad") String ciudad,
+                        @Param("mingrado") int minGradoAlcohol, @Param("maxgrado") int maxGradoAlcohol);
 
         // Consulta avanzada
         @Query(value = "SELECT COUNT(*) AS TOTAL_BEBIDAS, \r\n" + //
@@ -43,30 +43,6 @@ public interface BebidaRepository extends JpaRepository<Bebida, Integer> {
                         "MIN(grado_alcohol) MENOR_GRADO \r\n" + //
                         "FROM bebidas", nativeQuery = true)
         Collection<RespuestaInformacionBebidas> darInformacionBebidas();
-
-        // Consulta avanzada
-        @Query(value = "SELECT * \r\n" + //
-                        "FROM bebidas B\r\n" + //
-                        "WHERE grado_alcohol = (SELECT MAX(grado_alcohol) AS GRADO_MAX FROM bebidas)", nativeQuery = true)
-        Collection<Bebida> darBebidasConElMayorGradoAlcohol();
-
-        // Consulta avanzada
-        @Query(value = "SELECT COUNT(*) \r\n" + //
-                        "FROM bebidas B\r\n" + //
-                        "WHERE grado_alcohol = (SELECT MAX(grado_alcohol) AS GRADO_MAX FROM bebidas)", nativeQuery = true)
-        int darNumeroDeBebidasConElMayorGradoAlcohol();
-
-        // Consulta avanzada
-        @Query(value = "SELECT * \r\n" + //
-                        "FROM bebidas B\r\n" + //
-                        "WHERE grado_alcohol = (SELECT MIN(grado_alcohol) AS GRADO_MIN FROM bebidas)", nativeQuery = true)
-        Collection<Bebida> darBebidasConElMenorGradoAlcohol();
-
-        // Consulta avanzada
-        @Query(value = "SELECT COUNT(*) \r\n" + //
-                        "FROM bebidas B\r\n" + //
-                        "WHERE grado_alcohol = (SELECT MIN(grado_alcohol) AS GRADO_MIN FROM bebidas)", nativeQuery = true)
-        int darNumeroDeBebidasConElMenorGradoAlcohol();
 
         @Modifying
         @Transactional

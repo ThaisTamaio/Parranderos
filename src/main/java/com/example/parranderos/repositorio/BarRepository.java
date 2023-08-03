@@ -39,15 +39,18 @@ public interface BarRepository extends JpaRepository<Bar, Integer> {
                         "FROM bares B\r\n" + //
                         "INNER JOIN sirven SB ON B.ID = SB.ID_BAR\r\n" + //
                         "INNER JOIN bebidas BR ON SB.ID_BEBIDA = BR.ID\r\n" + //
+                        "WHERE BR.GRADO_ALCOHOL = (SELECT MAX(GRADO_ALCOHOL) FROM bebidas)", nativeQuery = true)
+        int darNumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol();
+
+
+        // Consulta avanzada
+        @Query(value = "SELECT COUNT(*)\r\n" + //
+                        "FROM bares B\r\n" + //
+                        "INNER JOIN sirven SB ON B.ID = SB.ID_BAR\r\n" + //
+                        "INNER JOIN bebidas BR ON SB.ID_BEBIDA = BR.ID\r\n" + //
                         "WHERE BR.GRADO_ALCOHOL = (SELECT MIN(GRADO_ALCOHOL) FROM bebidas)", nativeQuery = true)
         int darNumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol();
 
-        // Consulta avanzada
-        @Query(value = "SELECT CIUDAD, COUNT(ID) AS NUMEROBARES, SUM(cant_sedes) AS CANTIDADSEDES\r\n" + //
-                        "FROM bares\r\n" + //
-                        "GROUP BY ciudad\r\n" + //
-                        "ORDER BY ciudad ASC", nativeQuery = true)
-        Collection<RespuestaBaresPorCiudad> darBaresPorCiudad();
 
         @Modifying
         @Transactional

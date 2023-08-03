@@ -16,7 +16,7 @@ import com.example.parranderos.repositorio.Tipo_bebidaRepository;
 import com.example.parranderos.repositorio.BebidaRepository.RespuestaInformacionBebidas;
 
 @Controller
-public class bebidaController {
+public class BebidasController {
 
     @Autowired
     private BebidaRepository bebidaRepository;
@@ -25,13 +25,28 @@ public class bebidaController {
     private Tipo_bebidaRepository tipo_bebidaRepository;
 
     @GetMapping("/bebidas")
-    public String bebidas(Model model) {
+    public String bebidas(Model model, String ciudad, String minGrado, String maxGrado) {
         Collection<RespuestaInformacionBebidas> informacion = bebidaRepository.darInformacionBebidas();
         model.addAttribute("totalBebidas", informacion.iterator().next().getTOTAL_BEBIDAS());
         model.addAttribute("promedioGrado", informacion.iterator().next().getPROMEDIO_GRADO());
         model.addAttribute("mayorGrado", informacion.iterator().next().getMAYOR_GRADO());
         model.addAttribute("menorGrado", informacion.iterator().next().getMENOR_GRADO());
-        model.addAttribute("bebidas", bebidaRepository.darBebidas());
+       
+        System.out.println(ciudad);
+        System.out.println(minGrado);
+        System.out.println(maxGrado);
+
+
+        if((ciudad == null || ciudad.equals("")) || (minGrado == null || minGrado.equals("")) || (maxGrado == null || maxGrado.equals("")))
+        {
+            model.addAttribute("bebidas", bebidaRepository.darBebidas());
+        }
+        else
+        {
+            model.addAttribute("bebidas", bebidaRepository.darBebidasPorCiudadYGrado(ciudad, Integer.parseInt(minGrado), Integer.parseInt(maxGrado)));
+            
+        }
+
         return "bebidas";
     }
 

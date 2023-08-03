@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class gustanController {
+public class GustanController {
 
     @Autowired
     private BebedorRepository bebedorRepository;

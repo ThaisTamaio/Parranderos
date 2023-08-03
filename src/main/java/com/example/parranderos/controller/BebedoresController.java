@@ -15,7 +15,7 @@ import com.example.parranderos.repositorio.Tipo_bebidaRepository;
 import java.util.Optional;
 
 @Controller
-public class BebedorController {
+public class BebedoresController {
 
     @Autowired
     private BebedorRepository bebedorRepository;
@@ -27,7 +27,7 @@ public class BebedorController {
 
 
     @GetMapping("/bebedores")
-    public String bebedores(Model model) {
+    public String bebedores(Model model, String nombre) {
         int darNumeroDeBebedoresQueGustanDeBebidasConMayorGradoAlcohol = bebedorRepository
                 .darNumeroDeBebedoresQueGustanDeBebidasConMayorGradoAlcohol();
         int darNumeroDeBebedoresQueGustanDeBebidasConMenorGradoAlcohol = bebedorRepository
@@ -36,8 +36,17 @@ public class BebedorController {
                 darNumeroDeBebedoresQueGustanDeBebidasConMayorGradoAlcohol);
         model.addAttribute("darNumeroDeBebedoresQueGustanDeBebidasConMenorGradoAlcohol",
                 darNumeroDeBebedoresQueGustanDeBebidasConMenorGradoAlcohol);
-        model.addAttribute("bebedores", bebedorRepository.darBebedores());
+ 
         model.addAttribute("tipos", tipo_bebidaRepository.darTipos_bebida());
+
+        if(nombre != null && !nombre.equals(""))
+        {
+            model.addAttribute("bebedores", bebedorRepository.darBebedoresPorNombre(nombre));
+        }
+        else{
+            model.addAttribute("bebedores", bebedorRepository.darBebedores());
+        }
+
 
         return "bebedores";
     }

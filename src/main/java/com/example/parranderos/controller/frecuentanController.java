@@ -18,7 +18,7 @@ import com.example.parranderos.repositorio.BebedorRepository;
 import com.example.parranderos.repositorio.FrecuentanRepository;
 
 @Controller
-public class frecuentanController {
+public class FrecuentanController {
 
     @Autowired
     private BebedorRepository bebedorRepository;
