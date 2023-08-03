@@ -6,35 +6,44 @@
 
 </head>
 <body>
-    <h1>Crear Nueva Visita Frecuente</h1>
-    <form action="/parranderos/frecuentan/new/save" method="post">
+    <br>
+    <div class="container border border-2 w-25">    
 
-        <label for="id_bebedor">Bebedor:</label>
-        <select id="id_bebedor" name="id_bebedor" required>
+    <h1 class="text-center">Crear Nueva Visita</h1>
+
+    <form th:action="@{/frecuentan/new/save}" method="post">
+
+        <label class="col-form-label" for="id_bebedor">Bebedor:</label>
+        <select class="form-control" id="id_bebedor" name="id_bebedor" required>
             <th:block th:each="bebedor : ${bebedores}">
                 <option th:value="${bebedor.id}" th:text="${bebedor.nombre}"></option>
             </th:block>
         </select><br>
 
-        <label for="id_bar">Bar:</label>
-        <select id="id_bar" name="id_bar" required>
+        <label class="col-form-label" for="id_bar">Bar:</label>
+        <select class="form-control"  id="id_bar" name="id_bar" required>
             <th:block th:each="bar : ${bares}">
                 <option th:value="${bar.id}" th:text="${bar.nombre}"></option>
             </th:block>
         </select><br>
 
-        <label for="fecha_visita">Fecha de Visita:</label>
-        <input type="date" id="fecha_visita" name="fecha_visita" required><br>
+        <label class="col-form-label" for="fecha_visita">Fecha de Visita:</label>
+        <input class="form-control" type="date" id="fecha_visita" name="fecha_visita" required><br>
 
-        <label for="horario">Horario:</label>
-        <select id="horario" name="horario" required>
+        <label class="col-form-label" for="horario">Horario:</label>
+        <select class="form-control" id="horario" name="horario" required>
             <option value="diurno">Diurno</option>
             <option value="nocturno">Nocturno</option>
             <option value="todos">Todos</option>
         </select><br>
 
-        <input type="submit" value="Guardar">
-        <button onclick="window.history.back()">Cancelar</button>
+        <div class="text-center">
+        <input type="submit" value="Guardar" class="btn btn-primary">
+        <a th:href="@{/bebedores}" class="btn btn-primary">Cancelar</a>
+        </div>
+    </br>
     </form>
+    </div>
+
 </body>
 </html>

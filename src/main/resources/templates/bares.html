@@ -1,57 +1,94 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Lista de Bares</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script th:src="@{/css/bootstrap.min.js}"></script>
 
 </head>
+
 <body>
     <div class="text-center">
-    <h1>Lista de Bares</h1>
-    <p>Hay <span th:text="${NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol}"></span> bares que sirven bebidas con el mayor grado de alcohol.</p>
-    <p>Hay <span th:text="${NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol}"></span> bares que sirven bebidas con el menor grado de alcohol.</p>
-    
-    <form th:action="@{bares}" method="get">
-        <div class="input-group input-group-sm mb-2 justify-content-center">
-        <input class='w-25' id="'txtSearch" type="text" name="nombre">
-        <div class="input-group-append">
-        <button type="submit" class="btn btn-secondary">Buscar por nombre</button>
-        </div>
-    </div>
 
-    </form>
-    <p></p>
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Ciudad</th>
-            <th>Presupuesto</th>
-            <th>Cantidad de Sedes</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-        <th:block th:each="bar : ${bares}">
-            <tr>
-                <td th:text="${bar.id}"></td>
-                <td th:text="${bar.nombre}"></td>
-                <td th:text="${bar.ciudad}"></td>
-                <td th:text="${bar.presupuesto}"></td>
-                <td th:text="${bar.cant_sedes}"></td>
-                <td>
-                    <a th:href="@{bares/{id}/edit(id=${bar.id})}">Editar</a>
-                    <a th:href="@{bares/{id}/delete(id=${bar.id})}" onclick="return confirm('¿Estás seguro de borrar este bar?')">Borrar</a>
-                </td>
-            </tr>
-        </th:block>
-    </table>
-    <div>
-        <a th:href='@{borrar-bares}' class="btn btn-primary">Buscar bares por ciudad y tipo de bebida</a>
-        <a th:href='@{bares/new}' class="btn btn-primary">Añadir Bar</a>
-        <a th:href='@{sirven/new}' class="btn btn-primary">Añadir Bebida a Bar</a>
-        <a th:href='@{/}' class="btn btn-primary">Volver Atrás</a>
-    </div>
-</div>
+        <h1>Lista de Bares</h1>
+        <p>Hay <span th:text="${NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol}"></span> bares que sirven bebidas con
+            el mayor grado de alcohol.</p>
+        <p>Hay <span th:text="${NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol}"></span> bares que sirven bebidas con
+            el menor grado de alcohol.</p>
+
+            <div class="container w-25">
+                <div class="card border border-2 mx-auto">
+    
+                    <h5 class="card-header" role='button' id="headingOne">
+                        <a href="#" class="collapsed d-block" data-toggle="collapse" data-target="#busqueda">
+    
+                            Búsqueda avanzada
+                        </a>
+    
+                    </h5>
+    
+    
+                    <div id="busqueda" class="collapse">
+                        <form th:action="@{bares}" method="get">
+                            <label class="col-form-label">Ciudad:</label>
+                            <input class="form-control" type="text" id="ciudad" name="ciudad"  />
+    
+                            <label class="col-form-label" for="tipo">Tipo:</label>
+                            <select class="form-control" id="tipo" name="tipo" >
+                                <option value=""></option>
+                                <th:block th:each="tipo : ${tipos}">
+                                    <option th:value="${tipo.nombre}" th:text="${tipo.nombre}"></option>
+                                </th:block>
+                            </select><br>
+                            <br>
+    
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-secondary">Buscar por ciudad y presupuesto</button>
+                            </div>
+    
+                            <br />
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        <p></p>
+
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Ciudad</th>
+                    <th>Presupuesto</th>
+                    <th>Cantidad de Sedes</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <th:block th:each="bar : ${bares}">
+                <tr>
+                    <td th:text="${bar.id}"></td>
+                    <td th:text="${bar.nombre}"></td>
+                    <td th:text="${bar.ciudad}"></td>
+                    <td th:text="${bar.presupuesto}"></td>
+                    <td th:text="${bar.cant_sedes}"></td>
+                    <td>
+                        <a th:href="@{bares/{id}/edit(id=${bar.id})}">Editar</a>
+                        <a th:href="@{bares/{id}/delete(id=${bar.id})}"
+                            onclick="return confirm('¿Estás seguro de borrar este bar?')">Borrar</a>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+        <div>
+            <a th:href='@{bares/new}' class="btn btn-primary">Añadir Bar</a>
+            <a th:href='@{sirven/new}' class="btn btn-primary">Añadir Bebida a Bar</a>
+            <a th:href='@{/}' class="btn btn-primary">Volver Atrás</a>
+        </div>
+        <br/>
+
 </body>
+
 </html>

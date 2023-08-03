@@ -10,12 +10,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.parranderos.modelo.Bebedor;
 import com.example.parranderos.repositorio.BebedorRepository;
+import com.example.parranderos.repositorio.Tipo_bebidaRepository;
+
+import java.util.Optional;
 
 @Controller
 public class BebedorController {
 
     @Autowired
     private BebedorRepository bebedorRepository;
+
+    @Autowired
+    private Tipo_bebidaRepository tipo_bebidaRepository;
+
+
+
 
     @GetMapping("/bebedores")
     public String bebedores(Model model) {
@@ -28,6 +37,8 @@ public class BebedorController {
         model.addAttribute("darNumeroDeBebedoresQueGustanDeBebidasConMenorGradoAlcohol",
                 darNumeroDeBebedoresQueGustanDeBebidasConMenorGradoAlcohol);
         model.addAttribute("bebedores", bebedorRepository.darBebedores());
+        model.addAttribute("tipos", tipo_bebidaRepository.darTipos_bebida());
+
         return "bebedores";
     }
 

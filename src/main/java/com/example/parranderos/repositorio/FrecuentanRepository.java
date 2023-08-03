@@ -17,6 +17,7 @@ public interface FrecuentanRepository  extends JpaRepository<Frecuentan, Integer
     @Query(value = "SELECT * FROM frecuentan WHERE id_bebedor = :id_bebedor AND id_bar = :id_bar AND fecha_visita = :fecha_visita AND horario = :horario", nativeQuery = true)
     Frecuentan darFrecuentanPorId(@Param("id_bebedor") Integer id_bebedor, @Param("id_bar") Integer id_bar, @Param("fecha_visita") Date fecha_visita, @Param("horario") String horario);
 
+
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM frecuentan WHERE id_bebedor = :id_bebedor AND id_bar = :id_bar AND fecha_visita = :fecha_visita AND horario = :horario", nativeQuery = true)

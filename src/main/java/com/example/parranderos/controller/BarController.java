@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.parranderos.modelo.Bar;
 import com.example.parranderos.repositorio.BarRepository;
+import com.example.parranderos.repositorio.Tipo_bebidaRepository;
 
 @Controller
 public class BarController {
@@ -17,8 +18,11 @@ public class BarController {
     @Autowired
     private BarRepository barRepository;
 
+    @Autowired
+    private Tipo_bebidaRepository tipo_bebidaRepository;
+
     @GetMapping("/bares")
-    public String bares(Model model, String nombre) {
+    public String bares(Model model, String ciudad, String tipo) {
         int NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol = barRepository
                 .darNumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol();
         int NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol = barRepository
@@ -27,15 +31,16 @@ public class BarController {
                 NumeroDeBaresQueSirvenBebidasConMayorGradoAlcohol);
         model.addAttribute("NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol",
                 NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol);
-        
-        System.out.println(nombre);
+        model.addAttribute("tipos", tipo_bebidaRepository.darTipos_bebida());
 
-        if(nombre != null && !nombre.equals(""))
+        if((ciudad == null || ciudad.equals("")) || (tipo ==null || tipo.equals("")))
         {
-            model.addAttribute("bares", barRepository.darBaresPorNombre(nombre));
+            System.out.println("default search");
+            model.addAttribute("bares", barRepository.darBares());
         }
         else{
-            model.addAttribute("bares", barRepository.darBares());
+            System.out.println(barRepository.darBaresPorCiudadYTipoBebida(ciudad, tipo));
+            model.addAttribute("bares", barRepository.darBaresPorCiudadYTipoBebida(ciudad, tipo));
         }
 
         return "bares";
