@@ -6,26 +6,10 @@
 
 </head>
 <body>
-    <h1>Editar Nuevo Bar</h1>
-    <form th:action="@{'/bares/' + ${id} + '/edit/save'}" method="post">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" th:value="${bar.nombre}" required><br>
-
-        <label for="ciudad">Ciudad:</label>
-        <input type="text" id="ciudad" name="ciudad" th:value="${bar.ciudad}" required><br>
-
-        <label for="presupuesto">Presupuesto:</label>
-        <select id="presupuesto" name="presupuesto" required>
-            <option value="Alto" th:selected="${bar.presupuesto eq 'Alto'}">Alto</option>
-            <option value="Medio" th:selected="${bar.presupuesto eq 'Medio'}">Medio</option>
-            <option value="Bajo" th:selected="${bar.presupuesto eq 'Bajo'}">Bajo</option>
-        </select><br>
-
-        <label for="cant_sedes">Cantidad de Sedes:</label>
-        <input type="number" id="cant_sedes" name="cant_sedes" th:value="${bar.cant_sedes}" required><br>
-
-        <input type="submit" value="Guardar">
-        <button onclick="window.history.back()">Cancelar</button>
-    </form>
+</br>
+<form th:action="@{'/bares/' + ${id} + '/edit/save'}" th:object="${bar}" method="post">
+    <div th:replace="~{fragments/barForm :: barForm(titulo='Editar bar', bar=${bar})}">
+</form>
+</div>
 </body>
 </html>

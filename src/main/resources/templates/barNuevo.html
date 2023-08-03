@@ -6,26 +6,12 @@
 
 </head>
 <body>
-    <h1>Crear Nuevo Bar</h1>
-    <form action="/parranderos/bares/new/save" method="post">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br>
-
-        <label for="ciudad">Ciudad:</label>
-        <input type="text" id="ciudad" name="ciudad" required><br>
-
-        <label for="presupuesto">Presupuesto:</label>
-        <select id="presupuesto" name="presupuesto" required>
-            <option value="Alto">Alto</option>
-            <option value="Medio">Medio</option>
-            <option value="Bajo">Bajo</option>
-        </select><br>
-
-        <label for="cant_sedes">Cantidad de Sedes:</label>
-        <input type="number" id="cant_sedes" name="cant_sedes" required><br>
-
-        <input type="submit" value="Guardar">
-        <button onclick="window.history.back()">Cancelar</button>
+    
+</br>
+    <form action="#" th:action="@{/bares/new/save}" method="post">
+    <div th:replace="~{fragments/barForm :: barForm(titulo='Crear bar', test_param='Naaaambre')}">
     </form>
+    </div>
+
 </body>
 </html>

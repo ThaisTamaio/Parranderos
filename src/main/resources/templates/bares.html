@@ -12,8 +12,13 @@
     <p>Hay <span th:text="${NumeroDeBaresQueSirvenBebidasConMenorGradoAlcohol}"></span> bares que sirven bebidas con el menor grado de alcohol.</p>
     
     <form th:action="@{bares}" method="get">
-        <input id="'txtSearch" type="text" name="nombre">
-        <button type="submit">Buscar por nombre</button>
+        <div class="input-group input-group-sm mb-2 justify-content-center">
+        <input class='w-25' id="'txtSearch" type="text" name="nombre">
+        <div class="input-group-append">
+        <button type="submit" class="btn btn-secondary">Buscar por nombre</button>
+        </div>
+    </div>
+
     </form>
     <p></p>
     <table class="table">
