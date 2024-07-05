@@ -1,91 +1,61 @@
 package com.example.parranderos.controller;
 
 import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.parranderos.modelo.Bebida;
+import com.example.parranderos.modelo.TipoBebida;
 import com.example.parranderos.repositorio.BebidaRepository;
-import com.example.parranderos.repositorio.Tipo_bebidaRepository;
-import com.example.parranderos.repositorio.BebidaRepository.RespuestaInformacionBebidas;
+import com.example.parranderos.repositorio.TipoBebidaRepository;
 
-@Controller
+@RestController
+@RequestMapping("/api/bebidas")
 public class BebidasController {
 
     @Autowired
     private BebidaRepository bebidaRepository;
 
     @Autowired
-    private Tipo_bebidaRepository tipo_bebidaRepository;
+    private TipoBebidaRepository tipoBebidaRepository;
 
-    @GetMapping("/bebidas")
-    public String bebidas(Model model, String ciudad, String minGrado, String maxGrado) {
-        Collection<RespuestaInformacionBebidas> informacion = bebidaRepository.darInformacionBebidas();
-        model.addAttribute("totalBebidas", informacion.iterator().next().getTOTAL_BEBIDAS());
-        model.addAttribute("promedioGrado", informacion.iterator().next().getPROMEDIO_GRADO());
-        model.addAttribute("mayorGrado", informacion.iterator().next().getMAYOR_GRADO());
-        model.addAttribute("menorGrado", informacion.iterator().next().getMENOR_GRADO());
-       
-        System.out.println(ciudad);
-        System.out.println(minGrado);
-        System.out.println(maxGrado);
-
-
-        if((ciudad == null || ciudad.equals("")) || (minGrado == null || minGrado.equals("")) || (maxGrado == null || maxGrado.equals("")))
-        {
-            model.addAttribute("bebidas", bebidaRepository.darBebidas());
-        }
-        else
-        {
-            model.addAttribute("bebidas", bebidaRepository.darBebidasPorCiudadYGrado(ciudad, Integer.parseInt(minGrado), Integer.parseInt(maxGrado)));
-            
-        }
-
-        return "bebidas";
-    }
-
-    @GetMapping("/bebidas/new")
-    public String bebidaForm(Model model) {
-        model.addAttribute("bebida", new Bebida());
-        model.addAttribute("tipos", tipo_bebidaRepository.darTipos_bebida());
-        return "bebidaNuevo";
-    }
-
-    @PostMapping("/bebidas/new/save")
-    public String bebidaGuardar(@ModelAttribute Bebida bebida) {
-        bebidaRepository.insertarBebida(bebida.getNombre(), bebida.getGrado_alcohol(), bebida.getTipo().getId());
-        return "redirect:/bebidas";
-    }
-
-    @GetMapping("/bebidas/{id}/edit")
-    public String bebidaEditarForm(@PathVariable("id") long id, Model model) {
-        Bebida bebida = bebidaRepository.darBebida(id);
-        if (bebida != null) {
-            model.addAttribute("bebida", bebida);
-            model.addAttribute("tipos", tipo_bebidaRepository.darTipos_bebida());
-            return "bebidaEditar";
+    @GetMapping
+    public Collection<Bebida> getBebidas(@RequestParam(required = false) String ciudad, @RequestParam(required = false) String minGrado, @RequestParam(required = false) String maxGrado) {
+        if ((ciudad == null || ciudad.isEmpty()) || (minGrado == null || minGrado.isEmpty()) || (maxGrado == null || maxGrado.isEmpty())) {
+            return bebidaRepository.darBebidas();
         } else {
-            return "redirect:/bebidas";
+            return bebidaRepository.darBebidasPorCiudadYGrado(ciudad, Integer.parseInt(minGrado), Integer.parseInt(maxGrado));
         }
     }
 
-    @PostMapping("/bebidas/{id}/edit/save")
-    public String bebidaEditarGuardar(@PathVariable("id") long id, @ModelAttribute Bebida bebida) {
-        bebidaRepository.actualizarBebida(((long) id), bebida.getNombre(), bebida.getGrado_alcohol(),
-                bebida.getTipo().getId());
-        return "redirect:/bebidas";
+    @PostMapping
+    public Bebida createBebida(@RequestBody Bebida bebida) {
+        TipoBebida tipoBebida = tipoBebidaRepository.findById(bebida.getTipo().getId()).orElse(null);
+        if (tipoBebida != null) {
+            bebidaRepository.insertarBebida(bebida.getNombre(), bebida.getGrado_alcohol(), tipoBebida.getId());
+            return bebidaRepository.encontrarBebidaRecienCreada(bebida.getNombre(), tipoBebida.getId());
+        } else {
+            throw new IllegalArgumentException("Tipo de bebida no encontrado");
+        }
     }
 
-    @GetMapping("/bebidas/{id}/delete")
-    public String bebidaBorrar(@PathVariable("id") long id) {
+    @GetMapping("/{id}")
+    public Bebida getBebida(@PathVariable long id) {
+        return bebidaRepository.darBebida(id);
+    }
+
+    @PutMapping("/{id}")
+    public void updateBebida(@PathVariable long id, @RequestBody Bebida bebida) {
+        TipoBebida tipoBebida = tipoBebidaRepository.findById(bebida.getTipo().getId()).orElse(null);
+        if (tipoBebida != null) {
+            bebidaRepository.actualizarBebida(id, bebida.getNombre(), bebida.getGrado_alcohol(), tipoBebida.getId());
+        } else {
+            throw new IllegalArgumentException("Tipo de bebida no encontrado");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteBebida(@PathVariable long id) {
         bebidaRepository.eliminarBebida(id);
-        return "redirect:/bebidas";
     }
-
 }

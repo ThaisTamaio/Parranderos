@@ -7,29 +7,31 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Collection;
-import com.example.parranderos.modelo.Tipo_bebida;
+import com.example.parranderos.modelo.TipoBebida;
 
-public interface Tipo_bebidaRepository  extends JpaRepository<Tipo_bebida, Integer>{
+public interface TipoBebidaRepository  extends JpaRepository<TipoBebida, Integer>{
 
     @Query(value = "SELECT * FROM tipos_bebida", nativeQuery = true)
-    Collection<Tipo_bebida> darTipos_bebida();
+    Collection<TipoBebida> darTipos_bebida();
 
     @Query(value = "SELECT * FROM tipos_bebida WHERE id = :id", nativeQuery = true)
-    Tipo_bebida darTipo_bebida(@Param("id") long id);
+    TipoBebida darTipoBebida(@Param("id") long id);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM tipos_bebida WHERE id = :id", nativeQuery = true)
-    void eliminarTipo_bebida(@Param("id") long id);
+    void eliminarTipoBebida(@Param("id") long id);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE tipos_bebida SET nombre = :nombre WHERE id = :id", nativeQuery = true)
-    void actualizarTipo_bebida(@Param("id") long id, @Param("nombre") String nombre);
+    void actualizarTipoBebida(@Param("id") long id, @Param("nombre") String nombre);
 
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO tipos_bebida (id, nombre) VALUES ( parranderos_sequence.nextval , :nombre)", nativeQuery = true)
-    void insertarTipo_bebida(@Param("nombre") String nombre);
-    
+    void insertarTipoBebida(@Param("nombre") String nombre);
+
+    @Query(value = "SELECT * FROM tipos_bebida WHERE nombre = :nombre ORDER BY id DESC FETCH FIRST 1 ROW ONLY", nativeQuery = true)
+    TipoBebida encontrarTipoBebidaRecienCreado(@Param("nombre") String nombre);   
 }

@@ -22,13 +22,13 @@ public class Bebida {
 
     @ManyToOne
     @JoinColumn(name = "tipo", referencedColumnName = "id")
-    private Tipo_bebida tipo;
+    private TipoBebida tipo;
 
     public Bebida() {
         ;
     }
 
-    public Bebida(String nombre, Integer grado_alcohol, Tipo_bebida tipo) {
+    public Bebida(String nombre, Integer grado_alcohol, TipoBebida tipo) {
         this.nombre = nombre;
         this.grado_alcohol = grado_alcohol;
         this.tipo = tipo;
@@ -58,11 +58,11 @@ public class Bebida {
         this.grado_alcohol = grado_alcohol;
     }
 
-    public Tipo_bebida getTipo() {
+    public TipoBebida getTipo() {
         return tipo;
     }
 
-    public void setTipo(Tipo_bebida tipo) {
+    public void setTipo(TipoBebida tipo) {
         this.tipo = tipo;
     }
 

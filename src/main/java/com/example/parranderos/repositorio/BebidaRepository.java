@@ -61,5 +61,7 @@ public interface BebidaRepository extends JpaRepository<Bebida, Integer> {
         @Query(value = "INSERT INTO bebidas (id, nombre, grado_alcohol, tipo) VALUES ( parranderos_sequence.nextval , :nombre, :grado_alcohol, :tipo)", nativeQuery = true)
         void insertarBebida(@Param("nombre") String nombre, @Param("grado_alcohol") Integer grado_alcohol,
                         @Param("tipo") Integer tipo);
-
+        
+        @Query(value = "SELECT * FROM bebidas WHERE nombre = :nombre AND tipo = :tipo ORDER BY id DESC FETCH FIRST 1 ROW ONLY", nativeQuery = true)
+        Bebida encontrarBebidaRecienCreada(@Param("nombre") String nombre, @Param("tipo") Integer tipo);
 }

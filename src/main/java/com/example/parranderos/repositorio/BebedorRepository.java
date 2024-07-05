@@ -7,8 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-
-import com.example.parranderos.modelo.Bar;
 import com.example.parranderos.modelo.Bebedor;
 
 public interface BebedorRepository extends JpaRepository<Bebedor, Integer> {
@@ -42,8 +40,6 @@ public interface BebedorRepository extends JpaRepository<Bebedor, Integer> {
 
     @Query(value = "SELECT * FROM bebedores b WHERE b.nombre LIKE '%' || :nombre || '%'", nativeQuery=true)
     Collection<Bebedor> darBebedoresPorNombre(@Param("nombre") String nombre);
-
-
 
     // Consulta avanzada
     @Query(value = "SELECT COUNT(*)\r\n" + //
@@ -81,5 +77,8 @@ public interface BebedorRepository extends JpaRepository<Bebedor, Integer> {
     @Query(value = "INSERT INTO bebedores (id, nombre, ciudad, presupuesto) VALUES ( parranderos_sequence.nextval , :nombre, :ciudad, :presupuesto)", nativeQuery = true)
     void insertarBebedor(@Param("nombre") String nombre, @Param("ciudad") String ciudad,
             @Param("presupuesto") String presupuesto);
+
+    @Query(value = "SELECT * FROM bebedores WHERE nombre = :nombre AND ciudad = :ciudad ORDER BY id DESC FETCH FIRST 1 ROW ONLY", nativeQuery = true)
+    Bebedor encontrarBebedorRecienCreado(@Param("nombre") String nombre, @Param("ciudad") String ciudad);
 
 }

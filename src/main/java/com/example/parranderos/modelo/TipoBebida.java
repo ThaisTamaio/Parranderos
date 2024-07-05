@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="tipos_bebida")
-public class Tipo_bebida {
+public class TipoBebida {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -15,9 +15,9 @@ public class Tipo_bebida {
 
     private String nombre;
 
-    public Tipo_bebida(){;}
+    public TipoBebida(){;}
 
-    public Tipo_bebida(String nombre)
+    public TipoBebida(String nombre)
     {
         this.nombre = nombre;
     }

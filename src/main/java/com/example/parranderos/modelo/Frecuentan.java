@@ -1,5 +1,6 @@
 package com.example.parranderos.modelo;
-import java.sql.Date;
+
+import java.time.LocalDate;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -12,10 +13,9 @@ public class Frecuentan {
     @EmbeddedId
     private FrecuentanPK pk;
 
-    public Frecuentan(){;}
+    public Frecuentan() { }
 
-    public Frecuentan(Bebedor id_bebedor, Bar id_bar, Date fecha_visita, String horario)
-    {
+    public Frecuentan(Bebedor id_bebedor, Bar id_bar, LocalDate fecha_visita, String horario) {
         this.pk = new FrecuentanPK(id_bebedor, id_bar, fecha_visita, horario);
     }
 
@@ -28,9 +28,7 @@ public class Frecuentan {
     }
 
     @Override
-    public String toString() 
-    {
-        return this.pk.getBebedor().getId()+"|"+this.pk.getBar().getId()+"|"+this.pk.getFecha_visita()+"|"+this.pk.getHorario();
+    public String toString() {
+        return this.pk.getBebedor().getId() + "|" + this.pk.getBar().getId() + "|" + this.pk.getFecha_visita() + "|" + this.pk.getHorario();
     }
-
 }

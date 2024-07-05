@@ -71,8 +71,9 @@ public interface BarRepository extends JpaRepository<Bar, Integer> {
 
         @Modifying
         @Transactional
-        @Query(value = "INSERT INTO bares (id, nombre, ciudad, presupuesto, cant_sedes) VALUES ( parranderos_sequence.nextval , :nombre, :ciudad, :presupuesto, :cant_sedes)", nativeQuery = true)
-        void insertarBar(@Param("nombre") String nombre, @Param("ciudad") String ciudad,
-                        @Param("presupuesto") String presupuesto, @Param("cant_sedes") Integer cant_sedes);
-
+        @Query(value = "INSERT INTO bares (id, nombre, ciudad, presupuesto, cant_sedes) VALUES (parranderos_sequence.nextval, :nombre, :ciudad, :presupuesto, :cant_sedes)", nativeQuery = true)
+        void insertarBar(@Param("nombre") String nombre, @Param("ciudad") String ciudad, @Param("presupuesto") String presupuesto, @Param("cant_sedes") Integer cant_sedes);
+        
+        @Query(value = "SELECT * FROM bares WHERE nombre = :nombre AND ciudad = :ciudad ORDER BY id DESC FETCH FIRST 1 ROW ONLY", nativeQuery = true)
+        Bar encontrarBarRecienCreado(@Param("nombre") String nombre, @Param("ciudad") String ciudad);
 }
